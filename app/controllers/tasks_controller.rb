@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :require_user_logged_in,only:[:index,:show]
+  before_action :require_user_logged_in,only:[:index,:show,:edit,:update]
   before_action :correct_user,only: [:destroy,:edit,:show,:update]
  def index
    @tasks = current_user.tasks.order(id: :desc).page(params[:page]).per(5)
@@ -21,7 +21,7 @@ class TasksController < ApplicationController
    else
      @tasks = current_user.tasks.order(id: :desc).page(params[:page])
      flash.now[:danger] = 'taskが投稿されませんでした'
-     render 'toppages/index'
+     render:new
    end
  end
  
